@@ -2,6 +2,10 @@
 
 A Jekyll plugin to generate an JSON feed of your Jekyll posts
 
+Not intending to register this with rubygems. Simply to meet requirements for another project.
+
+Feel free to fork, improve and distribute.
+
 ## Installation
 
 Add this line to your site's Gemfile:
