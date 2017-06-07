@@ -1,4 +1,4 @@
-module JekyllFeed
+module JekyllFeedJson
   class MetaTag < Liquid::Tag
     # Use Jekyll's native relative_url filter
     include Jekyll::Filters::URLFilters
@@ -17,7 +17,7 @@ module JekyllFeed
 
     def attributes
       {
-        :type  => "application/atom+xml",
+        :type  => "application/json",
         :rel   => "alternate",
         :href  => absolute_url(path),
         :title => title,
@@ -28,7 +28,7 @@ module JekyllFeed
       if config["feed"] && config["feed"]["path"]
         config["feed"]["path"]
       else
-        "feed.xml"
+        "feed.json"
       end
     end
 

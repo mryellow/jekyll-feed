@@ -1,10 +1,10 @@
 require "jekyll"
 require "fileutils"
-require "jekyll-feed/generator"
+require "jekyll-feed-json/generator"
 
-module JekyllFeed
-  autoload :MetaTag,          "jekyll-feed/meta-tag"
-  autoload :PageWithoutAFile, "jekyll-feed/page-without-a-file.rb"
+module JekyllFeedJson
+  autoload :MetaTag,          "jekyll-feed-json/meta-tag"
+  autoload :PageWithoutAFile, "jekyll-feed-json/page-without-a-file.rb"
 end
 
-Liquid::Template.register_tag "feed_meta", JekyllFeed::MetaTag
+Liquid::Template.register_tag "feed_json_meta", JekyllFeedJson::MetaTag
