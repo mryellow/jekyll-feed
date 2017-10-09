@@ -8,7 +8,7 @@ module JekyllFeedJson
       puts "Generating JSON feed..."
 
       @site = site
-      return if file_exists?(feed_path)
+      #return if file_exists?(feed_path)
       @site.pages << content_for_file(feed_path)
     end
 
@@ -50,6 +50,10 @@ module JekyllFeedJson
       @site.posts.docs.each do |page|
         next if page.data['draft']
 
+        page.data['author'] ||= ''
+        page.data['excerpt'] ||= ''
+        page.data['featured'] ||= false
+
         data[:items].push({
           :id => page.id,
           :url => uri + page.url,
@@ -57,7 +61,8 @@ module JekyllFeedJson
           :summary => page.data['excerpt'],
           :date_published => DateTime.parse(page.data['date'].to_s).rfc3339,
           :author => page.data['author'],
-          :tags => page.data['categories'] # TODO: CSV the array?
+          :tags => page.data['categories'], # TODO: CSV the array?
+          :featured => page.data['featured']
         })
       end
 
@@ -66,7 +71,8 @@ module JekyllFeedJson
       file.data["sitemap"] = false
       #file.data["xsl"] = file_exists?("feed.xslt.xml")
       file.output
-      file
+
+      return file
     end
   end
 end
