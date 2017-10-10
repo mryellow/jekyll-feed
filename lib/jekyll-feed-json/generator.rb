@@ -1,3 +1,5 @@
+require 'cgi'
+
 module JekyllFeedJson
   class Generator < Jekyll::Generator
     safe true
@@ -53,6 +55,12 @@ module JekyllFeedJson
         page.data['author'] ||= ''
         page.data['excerpt'] ||= ''
         page.data['featured'] ||= false
+        page.data['image'] ||= 'https://dummyimage.com/800x800/000/fff.jpg&text=' + CGI.escape(page.data['title'])
+        page.data['image_h'] ||= 800
+        page.data['image_w'] ||= 800
+        page.data['thumb'] ||= 'https://dummyimage.com/80x80/000/fff.jpg&text=' + CGI.escape(page.data['title'])
+        page.data['thumb_h'] ||= 80
+        page.data['thumb_w'] ||= 80
 
         data[:items].push({
           :id => page.id,
@@ -62,7 +70,13 @@ module JekyllFeedJson
           :date_published => DateTime.parse(page.data['date'].to_s).rfc3339,
           :author => page.data['author'],
           :tags => page.data['categories'], # TODO: CSV the array?
-          :featured => page.data['featured']
+          :featured => page.data['featured'],
+          :image => page.data['image'],
+          :image_h => page.data['image_h'],
+          :image_w => page.data['image_w'],
+          :thumb => page.data['thumb'],
+          :thumb_h => page.data['thumb_h'],
+          :thumb_w => page.data['thumb_w']
         })
       end
 
