@@ -62,6 +62,14 @@ module JekyllFeedJson
         page.data['thumb_h'] ||= 80
         page.data['thumb_w'] ||= 80
 
+        # Check for relative URLs and add news domain.
+        unless page.data['image'].include?('http')
+          page.data['image'] = 'https://stockle.com/news' + page.data['image']
+        end
+        unless page.data['thumb'].include?('http')
+          page.data['thumb'] = 'https://stockle.com/news' + page.data['thumb']
+        end
+
         data[:items].push({
           :id => page.id,
           :url => uri + page.url,
